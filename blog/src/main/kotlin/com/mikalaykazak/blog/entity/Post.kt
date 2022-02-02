@@ -1,46 +1,26 @@
 package com.mikalaykazak.blog.entity
 
-import java.time.LocalDateTime
+import org.hibernate.annotations.SQLDelete
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
 import javax.persistence.Table
 
 @Entity
 @Table(name = "post")
+@SQLDelete(sql = "UPDATE post SET state=\'REMOVED\' WHERE id=?")
 class Post(
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	val id: Long?,
+	id: Long = 0,
 
-	@Column(name = "title", nullable = false)
-	val title: String,
+	@Column(name = "title", nullable = false) val title: String,
 
-	@Column(name = "text", nullable = false)
-	val text: String,
+	@Column(name = "text", nullable = false) val text: String,
 
-	@Column(name = "created_at", nullable = false)
-	val createdAt: LocalDateTime,
+	@Column(
+		name = "state",
+		nullable = false
+	) @Enumerated(value = EnumType.STRING) val state: State,
 
-	@Column(name = "updated_at", nullable = false)
-	val updatedAt: LocalDateTime,
-
-	@Column(name = "author", nullable = false)
-	val author: String,
-) {
-	constructor(
-		title: String,
-		text: String,
-		createdAt: LocalDateTime,
-		updatedAt: LocalDateTime,
-		author: String
-	) : this(null, title, text, createdAt, updatedAt, author)
-
-	enum class State(state: String) {
-		HIDDEN("hidden"),
-		DRAFT("draft"),
-		ACTIVE("active")
-	}
-}
+	@Column(name = "author_id", nullable = false) val authorId: Long,
+) : BaseEntity(id)

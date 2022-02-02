@@ -28,20 +28,20 @@
 			</column>
 
 			<column
-					name="created_at"
-					type="timestamp">
-				<constraints nullable="false"/>
-			</column>
-
-			<column
 					name="updated_at"
 					type="timestamp">
 				<constraints nullable="false"/>
 			</column>
 
 			<column
-					name="author"
+					name="state"
 					type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+
+			<column
+					name="author_id"
+					type="bigint">
 				<constraints nullable="false"/>
 			</column>
 		</createTable>

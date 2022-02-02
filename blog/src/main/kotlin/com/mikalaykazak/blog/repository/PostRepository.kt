@@ -1,8 +1,12 @@
 package com.mikalaykazak.blog.repository
 
 import com.mikalaykazak.blog.entity.Post
-import org.springframework.data.repository.PagingAndSortingRepository
+import com.mikalaykazak.blog.entity.State
+import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
+
 @Repository
-interface PostRepository : PagingAndSortingRepository<Post, Long>
+interface PostRepository : JpaRepository<Post, Long> {
+	fun findAllByStateIsNot(state: State): List<Post>
+}
