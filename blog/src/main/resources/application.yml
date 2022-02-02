@@ -1,0 +1,9 @@
+server:
+  servlet:
+    context-path: /api/v1/
+
+spring:
+  liquibase:
+    change-log: /liquibase/changelog-master.xml
+  profiles:
+    active: local

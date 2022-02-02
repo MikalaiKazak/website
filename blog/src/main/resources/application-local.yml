@@ -1,0 +1,16 @@
+server:
+  port: 9000
+
+logging:
+  level:
+    root: INFO
+    com.mikalaykazak.blog: DEBUG
+
+spring:
+  datasource:
+    username: user
+    password: password
+    url: jdbc:postgresql://localhost:5432/blog
+  jpa:
+    hibernate:
+      ddl-auto: update
