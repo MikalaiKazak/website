@@ -1,5 +1,6 @@
 package com.mikalaykazak.blog.web
 
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
+import javax.persistence.EntityNotFoundException
 
 @ControllerAdvice
 class ExceptionHandler : ResponseEntityExceptionHandler() {
@@ -28,6 +30,31 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
 	@ExceptionHandler(value = [EmptyResultDataAccessException::class])
 	fun handleEmptyResultDataAccessException(
 		ex: EmptyResultDataAccessException,
+		request: WebRequest,
+	): ResponseEntity<Any> {
+		return handleExceptionInternal(ex,
+			ex.message,
+			HttpHeaders(),
+			HttpStatus.BAD_REQUEST,
+			request)
+	}
+
+	//TODO change message
+	@ExceptionHandler(value = [DataIntegrityViolationException::class])
+	fun handleDataIntegrityViolationException(
+		ex: DataIntegrityViolationException,
+		request: WebRequest,
+	): ResponseEntity<Any> {
+		return handleExceptionInternal(ex,
+			null,
+			HttpHeaders(),
+			HttpStatus.BAD_REQUEST,
+			request)
+	}
+
+	@ExceptionHandler(value = [EntityNotFoundException::class])
+	fun handleEntityNotFoundException(
+		ex: EntityNotFoundException,
 		request: WebRequest,
 	): ResponseEntity<Any> {
 		return handleExceptionInternal(ex,

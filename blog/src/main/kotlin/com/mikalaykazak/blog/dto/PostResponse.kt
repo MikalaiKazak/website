@@ -8,14 +8,19 @@ import java.time.LocalDateTime
 class PostResponse(
 	@JsonProperty("id")
 	val id: Long,
-	@JsonProperty("title")
-	val title: String,
-	@JsonProperty("text")
-	val text: String,
+	@JsonProperty("headline")
+	val headline: String,
+	@JsonProperty("markdownBody")
+	val markdownBody: String,
+	@JsonProperty("htmlBody")
+	val htmlBody: String,
 	@JsonProperty("updatedAt")
 	val updatedAt: LocalDateTime,
 	@JsonProperty("state")
 	val state: String,
 	@JsonProperty("authorId")
 	val authorId: Long,
+
+	@JsonProperty("tags")
+	val tags: List<TagResponse>,
 )

@@ -7,25 +7,31 @@ import com.mikalaykazak.blog.entity.Post
 import com.mikalaykazak.blog.entity.State
 
 fun PostCreateRequest.toEntity() = Post(
-	title = title,
-	text = text,
+	headline = headline,
+	markdownBody = markdownBody,
 	state = State.DRAFT,
-	authorId = authorId
+	authorId = authorId,
+	tags = tags.toEntities()
 )
 
 fun PostUpdateRequest.toEntity() = Post(
 	id = id,
-	title = title,
-	text = text,
+	headline = headline,
+	markdownBody = markdownBody,
 	state = State.valueOf(state),
-	authorId = authorId
+	authorId = authorId,
+	tags = tags.toEntities()
 )
 
 fun Post.toResponse() = PostResponse(
-	id = id,
-	title = title,
-	text = text,
+	id = id!!,
+	headline = headline,
+	markdownBody = markdownBody,
+	htmlBody = htmlBody,
 	authorId = authorId,
 	updatedAt = updatedAt,
-	state = state.name
+	state = state.name,
+	tags = tags.toResponses()
 )
+
+fun List<Post>.toResponses(): List<PostResponse> = map(Post::toResponse)

@@ -11,18 +11,25 @@
 					autoIncrement="true"
 					type="bigint">
 				<constraints
+						primaryKeyName="pk_post_id"
 						primaryKey="true"
 						nullable="false"/>
 			</column>
 
 			<column
-					name="title"
+					name="headline"
 					type="varchar(255)">
 				<constraints nullable="false"/>
 			</column>
 
 			<column
-					name="text"
+					name="markdown_body"
+					type="text">
+				<constraints nullable="false"/>
+			</column>
+
+			<column
+					name="html_body"
 					type="text">
 				<constraints nullable="false"/>
 			</column>

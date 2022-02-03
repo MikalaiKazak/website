@@ -8,6 +8,6 @@ interface PostService {
 	fun createPost(postCreateRequest: PostCreateRequest): PostResponse
 	fun findAll(): List<PostResponse>
 	fun findById(postId: Long): PostResponse
-	fun updatePost(postUpdateRequest: PostUpdateRequest)
+	fun updatePost(postUpdateRequest: PostUpdateRequest): PostResponse
 	fun deleteById(postId: Long)
 }
