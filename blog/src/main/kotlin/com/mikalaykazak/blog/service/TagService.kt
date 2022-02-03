@@ -5,7 +5,7 @@ import com.mikalaykazak.blog.dto.TagResponse
 
 interface TagService {
 
-	fun create(tagRequest: TagRequest): TagResponse
+	fun createTag(tagRequest: TagRequest): TagResponse
 
 	fun deleteById(id: String)
 

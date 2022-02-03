@@ -15,7 +15,7 @@ import javax.persistence.EntityNotFoundException
 class TagServiceImpl(private val tagRepository: TagRepository) : TagService {
 
 	@Transactional()
-	override fun create(tagRequest: TagRequest): TagResponse =
+	override fun createTag(tagRequest: TagRequest): TagResponse =
 		tagRepository.save(tagRequest.toEntity()).toResponse()
 
 	@Transactional()
