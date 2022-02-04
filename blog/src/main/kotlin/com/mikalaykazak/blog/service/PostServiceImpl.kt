@@ -25,55 +25,52 @@ class PostServiceImpl(
 ) : PostService {
 
 	@Transactional
-	override fun updatePost(postUpdateRequest: PostUpdateRequest): PostResponse = when {
-		postRepository.existsById(postUpdateRequest.id) -> {
-			val post = postUpdateRequest.toEntity()
-			post.htmlBody = processMarkdownToHtml(post.markdownBody)
-			postRepository.save(post).toResponse()
-		}
-		else -> {
-			throw EntityNotFoundException("Post with id=${postUpdateRequest.id} not found")
-		}
-	}
+	override fun updatePost(postUpdateRequest: PostUpdateRequest): PostResponse =
+		postRepository.findById(postUpdateRequest.id)
+			.map { postUpdateRequest.toEntity() }
+			.map(::processMarkdownToHtml)
+			.map(postRepository::save)
+			.map(Post::toResponse)
+			.orElseThrow { throw EntityNotFoundException("Post with id=${postUpdateRequest.id} not found") }
 
 	@Transactional
 	override fun createPost(postCreateRequest: PostCreateRequest): PostResponse {
 		val post = postCreateRequest.toEntity()
-
-		post.htmlBody = processMarkdownToHtml(post.markdownBody)
-
+		processMarkdownToHtml(post)
 		return postRepository.save(post).toResponse()
-	}
-
-	private fun processMarkdownToHtml(markdown: String): String {
-		val options = PegdownOptionsAdapter.flexmarkOptions(true,
-			PegdownExtensions.HARDWRAPS,
-			TablesExtension.create(),
-			EscapedCharacterExtension.create())
-
-		val parser = Parser.builder(options).build()
-		val document = parser.parse(markdown)
-
-		val renderer = HtmlRenderer.builder(options).build()
-		return renderer.render(document)
 	}
 
 	@Transactional
 	override fun deleteById(postId: Long) = when {
 		postRepository.existsById(postId) -> {
 			postRepository.softDelete(postId)
-		}
-		else -> {
+		} else -> {
 			throw EntityNotFoundException("Post with id=$postId not found")
 		}
 	}
 
 	@Transactional(readOnly = true)
 	override fun findById(postId: Long): PostResponse =
-		postRepository.findById(postId).map(Post::toResponse).orElseThrow {
-			EntityNotFoundException("Post with id=$postId not found")
-		}
+		postRepository.findById(postId)
+			.map(Post::toResponse)
+			.orElseThrow { EntityNotFoundException("Post with id=$postId not found") }
 
 	@Transactional(readOnly = true)
 	override fun findAll(): List<PostResponse> = postRepository.findAll().toResponses()
+
+	//TODO
+	private fun processMarkdownToHtml(post: Post): Post {
+		val options = PegdownOptionsAdapter.flexmarkOptions(true,
+			PegdownExtensions.HARDWRAPS,
+			TablesExtension.create(),
+			EscapedCharacterExtension.create())
+
+		val parser = Parser.builder(options).build()
+		val document = parser.parse(post.markdownBody)
+
+		val renderer = HtmlRenderer.builder(options).build()
+		post.htmlBody = renderer.render(document)
+
+		return post
+	}
 }

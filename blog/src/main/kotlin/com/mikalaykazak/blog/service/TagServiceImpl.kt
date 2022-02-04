@@ -14,21 +14,26 @@ import javax.persistence.EntityNotFoundException
 @Service
 class TagServiceImpl(private val tagRepository: TagRepository) : TagService {
 
-	@Transactional()
-	override fun createTag(tagRequest: TagRequest): TagResponse =
-		tagRepository.save(tagRequest.toEntity()).toResponse()
+	@Transactional
+	override fun createTag(tagRequest: TagRequest): TagResponse = when {
+		tagRepository.existsById(tagRequest.tag) -> {
+			throw EntityNotFoundException("Tag ${tagRequest.tag} already exists")
+		} else -> {
+			tagRepository.save(tagRequest.toEntity()).toResponse()
+		}
+	}
 
-	@Transactional()
-	override fun deleteById(id: String) =
-		tagRepository.deleteById(id)
+	@Transactional
+	override fun deleteByTag(tag: String) = tagRepository.deleteById(tag)
 
 	@Transactional(readOnly = true)
-	override fun findAll(): List<TagResponse> =
-		tagRepository.findAll().toResponses()
-
+	override fun findAll(): List<TagResponse> = tagRepository.findAll().toResponses()
 
 	@Transactional(readOnly = true)
-	override fun findById(id: String): TagResponse = tagRepository.findById(id)
+	override fun findAllByTag(tags: Array<String>): List<TagResponse> = tagRepository.findAllByIdIn(tags).map(Tag::toResponse)
+
+	@Transactional(readOnly = true)
+	override fun findByTag(tag: String): TagResponse = tagRepository.findById(tag)
 		.map(Tag::toResponse)
-		.orElseThrow { EntityNotFoundException("Tag $id not found") }
+		.orElseThrow { EntityNotFoundException("Tag $tag not found") }
 }

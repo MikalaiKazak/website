@@ -1,14 +1,8 @@
 package com.mikalaykazak.blog.entity
 
-import org.hibernate.annotations.Cache
-import org.hibernate.annotations.CacheConcurrencyStrategy
-import org.hibernate.annotations.DynamicInsert
 import org.hibernate.annotations.DynamicUpdate
-import org.springframework.data.jpa.domain.support.AuditingEntityListener
-import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.EntityListeners
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
 import javax.persistence.FetchType
@@ -18,17 +12,20 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
 import javax.persistence.ManyToMany
+import javax.persistence.NamedAttributeNode
+import javax.persistence.NamedEntityGraph
 import javax.persistence.Table
 
-@EntityListeners(value = [AuditingEntityListener::class])
-@DynamicUpdate
-@DynamicInsert
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "post")
+@NamedEntityGraph(name = "post-tag-entity-graph",
+	attributeNodes = [NamedAttributeNode("tags")]
+)
+@DynamicUpdate
 class Post(
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	val id: Long? = null,
 
 	@Column(name = "headline", nullable = false)
@@ -40,13 +37,14 @@ class Post(
 	@Column(
 		name = "state",
 		nullable = false
-	) @Enumerated(value = EnumType.STRING)
+	)
+	@Enumerated(value = EnumType.STRING)
 	val state: State,
 
 	@Column(name = "author_id", nullable = false)
 	val authorId: Long,
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 		name = "post_tag",
 		joinColumns = [JoinColumn(name = "post_id", referencedColumnName = "id")],
@@ -54,9 +52,10 @@ class Post(
 	)
 	val tags: List<Tag>,
 
-	@Column(name = "updated_at", nullable = false)
-	val updatedAt: LocalDateTime = LocalDateTime.now(),
-) {
+	// TODO maybe this redundant
+//	@OneToMany(cascade = [CascadeType.ALL], mappedBy = "post", fetch = FetchType.EAGER)
+//	val comments: List<Comment> = listOf(),
+
 	@Column(name = "html_body", nullable = false)
-	lateinit var htmlBody: String
-}
+	var htmlBody: String = "",
+) : BaseEntity()

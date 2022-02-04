@@ -27,6 +27,7 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
 		return handleExceptionInternal(ex, errors, headers, status, request)
 	}
 
+	//TODO change message
 	@ExceptionHandler(value = [EmptyResultDataAccessException::class])
 	fun handleEmptyResultDataAccessException(
 		ex: EmptyResultDataAccessException,
@@ -64,6 +65,7 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
 			request)
 	}
 
+	//TODO change message
 	@ExceptionHandler(value = [IllegalArgumentException::class])
 	fun handleIllegalArgumentException(
 		ex: IllegalArgumentException,

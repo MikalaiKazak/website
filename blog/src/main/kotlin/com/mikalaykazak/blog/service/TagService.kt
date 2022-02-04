@@ -7,9 +7,11 @@ interface TagService {
 
 	fun createTag(tagRequest: TagRequest): TagResponse
 
-	fun deleteById(id: String)
+	fun deleteByTag(tag: String)
 
 	fun findAll(): List<TagResponse>
 
-	fun findById(id: String): TagResponse
+	fun findAllByTag(tags: Array<String>): List<TagResponse>
+
+	fun findByTag(tag: String): TagResponse
 }

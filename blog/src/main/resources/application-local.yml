@@ -4,6 +4,7 @@ server:
 logging:
   level:
     root: INFO
+    org.hibernate.SQL: DEBUG
     com.mikalaykazak.blog: DEBUG
 
 spring:
@@ -14,3 +15,4 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
