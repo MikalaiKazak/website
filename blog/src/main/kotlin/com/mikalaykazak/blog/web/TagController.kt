@@ -1,6 +1,6 @@
 package com.mikalaykazak.blog.web
 
-import com.mikalaykazak.blog.dto.TagRequest
+import com.mikalaykazak.blog.dto.tag.TagRequest
 import com.mikalaykazak.blog.service.TagService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping

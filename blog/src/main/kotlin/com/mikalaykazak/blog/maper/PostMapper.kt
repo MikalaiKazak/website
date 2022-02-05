@@ -1,8 +1,8 @@
 package com.mikalaykazak.blog.maper
 
-import com.mikalaykazak.blog.dto.PostCreateRequest
-import com.mikalaykazak.blog.dto.PostResponse
-import com.mikalaykazak.blog.dto.PostUpdateRequest
+import com.mikalaykazak.blog.dto.post.PostCreateRequest
+import com.mikalaykazak.blog.dto.post.PostResponse
+import com.mikalaykazak.blog.dto.post.PostUpdateRequest
 import com.mikalaykazak.blog.entity.Post
 import com.mikalaykazak.blog.entity.State
 

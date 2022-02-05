@@ -1,6 +1,6 @@
 package com.mikalaykazak.blog.service
 
-import com.mikalaykazak.blog.dto.PostResponse
+import com.mikalaykazak.blog.dto.post.PostResponse
 import com.mikalaykazak.blog.entity.Post
 import com.mikalaykazak.blog.entity.PublishDelayPostEvent
 import com.mikalaykazak.blog.entity.State

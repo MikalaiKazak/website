@@ -1,7 +1,7 @@
 package com.mikalaykazak.blog.web
 
-import com.mikalaykazak.blog.dto.PostCreateRequest
-import com.mikalaykazak.blog.dto.PostUpdateRequest
+import com.mikalaykazak.blog.dto.post.PostCreateRequest
+import com.mikalaykazak.blog.dto.post.PostUpdateRequest
 import com.mikalaykazak.blog.service.PostService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping

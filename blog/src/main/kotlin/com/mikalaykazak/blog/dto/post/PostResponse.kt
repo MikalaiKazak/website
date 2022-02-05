@@ -1,10 +1,9 @@
-package com.mikalaykazak.blog.dto
+package com.mikalaykazak.blog.dto.post
 
-import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.mikalaykazak.blog.dto.tag.TagResponse
 import java.time.LocalDateTime
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 class PostResponse(
 	@JsonProperty("id")
 	val id: Long,

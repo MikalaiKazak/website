@@ -7,7 +7,7 @@
 	<changeSet id="4" author="mikalay.kazak@gmail.com">
 		<createTable tableName="comment">
 			<column
-					autoIncrement="false"
+					autoIncrement="true"
 					name="id"
 					type="bigint">
 				<constraints
@@ -17,7 +17,7 @@
 			</column>
 
 			<column
-					name="userId"
+					name="user_id"
 					type="bigint">
 				<constraints nullable="false"/>
 			</column>
@@ -25,12 +25,6 @@
 			<column
 					name="text"
 					type="text">
-				<constraints nullable="false"/>
-			</column>
-
-			<column
-					name="updated_at"
-					type="timestamp">
 				<constraints nullable="false"/>
 			</column>
 
@@ -49,7 +43,7 @@
 
 		<addForeignKeyConstraint baseTableName="comment" baseColumnNames="post_id"
 								 constraintName="fk_comment_post_id"
-								 referencedTableName="post" referencedColumnNames="id"
+								 referencedTableName="post" referencedColumnNames="id"/>
 
 		<rollback>
 			<dropTable tableName="comment"/>
