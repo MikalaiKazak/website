@@ -13,9 +13,9 @@ class PostCreateRequest(
 	@JsonProperty("markdownBody")
 	@field:NotBlank
 	val markdownBody: String,
-	@JsonProperty("authorId")
+	@JsonProperty("userId")
 	@field:Positive
-	val authorId: Long,
+	val userId: Long,
 	@JsonProperty("tags")
 	@field:Valid
 	val tags: List<TagRequest> = listOf(),

@@ -10,7 +10,7 @@ fun PostCreateRequest.toEntity() = Post(
 	headline = headline,
 	markdownBody = markdownBody,
 	state = State.DRAFT,
-	authorId = authorId,
+	userId = userId,
 	tags = tags.toEntities()
 )
 
@@ -19,7 +19,7 @@ fun PostUpdateRequest.toEntity() = Post(
 	headline = headline,
 	markdownBody = markdownBody,
 	state = State.valueOf(state),
-	authorId = authorId,
+	userId = userId,
 	tags = tags.toEntities()
 )
 
@@ -28,7 +28,7 @@ fun Post.toResponse() = PostResponse(
 	headline = headline,
 	markdownBody = markdownBody,
 	htmlBody = htmlBody,
-	authorId = authorId,
+	userId = userId,
 	updatedAt = updatedAt,
 	state = state.name,
 	tags = tags.toResponses()

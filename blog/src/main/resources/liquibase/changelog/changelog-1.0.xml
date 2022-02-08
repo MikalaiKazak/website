@@ -47,7 +47,7 @@
 			</column>
 
 			<column
-					name="author_id"
+					name="user_id"
 					type="bigint">
 				<constraints nullable="false"/>
 			</column>

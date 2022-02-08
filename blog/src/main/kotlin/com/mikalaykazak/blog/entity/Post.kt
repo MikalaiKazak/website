@@ -1,6 +1,7 @@
 package com.mikalaykazak.blog.entity
 
 import org.hibernate.annotations.DynamicUpdate
+import java.time.LocalDateTime
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.EnumType
@@ -43,21 +44,20 @@ class Post(
 	@Enumerated(value = EnumType.STRING)
 	val state: State,
 
-	@Column(name = "author_id", nullable = false)
-	val authorId: Long,
+	@Column(name = "user_id", nullable = false)
+	val userId: Long,
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 		name = "post_tag",
 		joinColumns = [JoinColumn(name = "post_id", referencedColumnName = "id")],
-		inverseJoinColumns = [JoinColumn(name = "tag_id", referencedColumnName = "id")]
+		inverseJoinColumns = [JoinColumn(name = "tag_id", referencedColumnName = "tag")]
 	)
 	val tags: List<Tag>,
 
-	// TODO maybe this redundant
-//	@OneToMany(cascade = [CascadeType.ALL], mappedBy = "post", fetch = FetchType.EAGER)
-//	val comments: List<Comment> = listOf(),
+	@Column(name = "updated_at", nullable = false)
+	val updatedAt: LocalDateTime = LocalDateTime.now(),
 
 	@Column(name = "html_body", nullable = false)
 	var htmlBody: String = "",
-) : BaseEntity()
+)

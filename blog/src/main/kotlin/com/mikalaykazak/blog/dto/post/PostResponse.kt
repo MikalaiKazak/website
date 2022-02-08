@@ -17,8 +17,8 @@ class PostResponse(
 	val updatedAt: LocalDateTime,
 	@JsonProperty("state")
 	val state: String,
-	@JsonProperty("authorId")
-	val authorId: Long,
+	@JsonProperty("userId")
+	val userId: Long,
 
 	@JsonProperty("tags")
 	val tags: List<TagResponse>,

@@ -20,9 +20,9 @@ class PostUpdateRequest(
 	@JsonProperty("state")
 	@field:NotBlank
 	val state: String,
-	@JsonProperty("authorId")
+	@JsonProperty("userId")
 	@field:Positive
-	val authorId: Long,
+	val userId: Long,
 	@JsonProperty("tags")
 	@field:NotNull
 	val tags: List<TagRequest>,

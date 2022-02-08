@@ -4,37 +4,40 @@
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-	<changeSet id="3" author="mikalay.kazak@gmail.com">
-		<createTable tableName="post_tag">
+	<changeSet id="5" author="mikalay.kazak@gmail.com">
+		<createTable tableName="reaction">
+
 			<column
 					name="post_id"
 					type="bigint">
 				<constraints
-						primaryKeyName="pk_post_tag_id"
+						primaryKeyName="pk_reaction_id"
 						primaryKey="true"
 						nullable="false"/>
 			</column>
 
 			<column
-					name="tag_id"
-					type="varchar(50)">
+					name="user_id"
+					type="bigint">
 				<constraints
-						primaryKeyName="pk_post_tag_id"
+						primaryKeyName="pk_reaction_id"
 						primaryKey="true"
 						nullable="false"/>
 			</column>
+
+			<column
+					name="vote"
+					type="tinyint">
+				<constraints nullable="false"/>
+			</column>
 		</createTable>
 
-		<addForeignKeyConstraint baseTableName="post_tag" baseColumnNames="tag_id"
-								 constraintName="fk_post_tag_tag_id"
-								 referencedTableName="tag" referencedColumnNames="tag"/>
-
-		<addForeignKeyConstraint baseTableName="post_tag" baseColumnNames="post_id"
-								 constraintName="fk_post_tag_post_id"
+		<addForeignKeyConstraint baseTableName="reaction" baseColumnNames="post_id"
+								 constraintName="fk_reaction_post_id"
 								 referencedTableName="post" referencedColumnNames="id"/>
 
 		<rollback>
-			<dropTable tableName="post_tag"/>
+			<dropTable tableName="reaction"/>
 		</rollback>
 	</changeSet>
 </databaseChangeLog>

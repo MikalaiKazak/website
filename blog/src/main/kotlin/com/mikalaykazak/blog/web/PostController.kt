@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/post")
-class PostController(private val postService: PostService) {
+@RequestMapping("/posts")
+class PostController(
+	private val postService: PostService
+) {
 
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
-	fun createPost(@RequestBody @Valid postCreateRequest: PostCreateRequest) = postService.createPost(postCreateRequest)
+	fun createPost(@RequestBody @Valid postCreateRequest: PostCreateRequest) =
+		postService.createPost(postCreateRequest)
 
 	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)

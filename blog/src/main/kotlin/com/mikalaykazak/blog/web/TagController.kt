@@ -14,7 +14,7 @@ import javax.validation.Valid
 import javax.websocket.server.PathParam
 
 @RestController
-@RequestMapping("/tag")
+@RequestMapping("/tags")
 class TagController(private val tagService: TagService) {
 
 	@PostMapping("/")

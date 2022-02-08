@@ -7,7 +7,7 @@
 	<changeSet id="2" author="mikalay.kazak@gmail.com">
 		<createTable tableName="tag">
 			<column
-					name="id"
+					name="tag"
 					type="varchar(50)">
 				<constraints
 						primaryKeyName="pk_tag_id"

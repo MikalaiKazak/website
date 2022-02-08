@@ -27,7 +27,7 @@ class TagServiceImpl(private val tagRepository: TagRepository) : TagService {
 	override fun findAll(): List<TagResponse> = tagRepository.findAll().toResponses()
 
 	override fun findAllByTag(tags: Array<String>) =
-		tagRepository.findAllByIdIn(tags).map(Tag::toResponse)
+		tagRepository.findAllByTagIn(tags).map(Tag::toResponse)
 
 	override fun findEntityByTag(tag: String) = tagRepository.findById(tag)
 		.orElseThrow { EntityNotFoundException("Tag $tag not found") }

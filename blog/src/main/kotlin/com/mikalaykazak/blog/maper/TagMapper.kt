@@ -5,11 +5,11 @@ import com.mikalaykazak.blog.dto.tag.TagResponse
 import com.mikalaykazak.blog.entity.Tag
 
 fun Tag.toResponse() = TagResponse(
-	tag = id
+	tag = tag
 )
 
 fun TagRequest.toEntity() = Tag(
-	id = tag
+	tag = tag
 )
 
 fun List<Tag>.toResponses(): List<TagResponse> = map(Tag::toResponse)
