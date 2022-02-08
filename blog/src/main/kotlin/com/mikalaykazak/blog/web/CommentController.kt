@@ -36,6 +36,5 @@ class CommentController(
 	@ResponseStatus(HttpStatus.CREATED)
 	fun createCommentForPost(
 		@PathVariable("postId") postId: Long,
-		@RequestBody @Valid commentCreateRequest: CommentCreateRequest,
-	) = commentService.createCommentForPost(postId, commentCreateRequest)
+		@RequestBody @Valid commentCreateRequest: CommentCreateRequest) = commentService.createCommentForPost(postId, commentCreateRequest)
 }

@@ -6,8 +6,8 @@ import com.mikalaykazak.blog.entity.Comment
 import com.mikalaykazak.blog.maper.toEntity
 import com.mikalaykazak.blog.maper.toResponse
 import com.mikalaykazak.blog.repository.CommentRepository
-import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CommentServiceImpl(
@@ -15,12 +15,14 @@ class CommentServiceImpl(
 	private val postService: PostService,
 ) : CommentService {
 
+	@Transactional(readOnly = true)
 	override fun findAllByPostId(
 		postId: Long
 	): List<CommentResponse> {
 		return commentRepository.findAllByPostId(postId).map(Comment::toResponse).toList()
 	}
 
+	@Transactional
 	override fun createCommentForPost(
 		postId: Long,
 		commentCreateRequest: CommentCreateRequest,

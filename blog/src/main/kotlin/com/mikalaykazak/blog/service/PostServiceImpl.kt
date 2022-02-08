@@ -19,12 +19,12 @@ import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityNotFoundException
 
 @Service
-@Transactional
 class PostServiceImpl(
 	private val postRepository: PostRepository,
 	private val tagService: TagService,
 ) : PostService {
 
+	@Transactional
 	override fun updatePost(postUpdateRequest: PostUpdateRequest) = when {
 		existsById(postUpdateRequest.id) -> {
 			val post = postUpdateRequest.toEntity()
@@ -34,25 +34,33 @@ class PostServiceImpl(
 		else -> throw EntityNotFoundException("Post with id=${postUpdateRequest.id} not found")
 	}
 
+	@Transactional(readOnly = true)
 	override fun existsById(postId: Long) = postRepository.existsById(postId)
 
+	@Transactional
 	override fun createPost(postCreateRequest: PostCreateRequest): PostResponse {
 		val post = postCreateRequest.toEntity()
 		processMarkdownToHtml(post)
 		return postRepository.save(post).toResponse()
 	}
 
+	@Transactional
 	override fun deleteById(postId: Long) = when {
 		existsById(postId) -> postRepository.deleteById(postId)
 		else -> throw EntityNotFoundException("Post with id=$postId not found")
 	}
 
+	@Transactional(readOnly = true)
 	override fun findById(postId: Long) = findEntityById(postId).toResponse()
 
+	@Transactional(readOnly = true)
 	override fun findAll(): List<PostResponse> = postRepository.findAll().toResponses()
 
-	override fun findEntityById(postId: Long) = postRepository.findById(postId)
-		.orElseThrow { EntityNotFoundException("Post with id=$postId not found") }
+	@Transactional(readOnly = true)
+	override fun findEntityById(postId: Long): Post {
+		return postRepository.findById(postId)
+			.orElseThrow { EntityNotFoundException("Post with id=$postId not found") }
+	}
 
 	//TODO
 	private fun processMarkdownToHtml(post: Post): Post {

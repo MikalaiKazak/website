@@ -9,10 +9,7 @@ class ReactionRequest(
 	@Positive
 	@NotNull
 	val userId: Long,
-	@JsonProperty("postId")
-	@Positive
-	@NotNull
-	val postId: Long,
+
 	@JsonProperty("vote")
 	@NotNull
 	val vote: Int,

@@ -12,25 +12,33 @@ import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityNotFoundException
 
 @Service
-@Transactional
 class TagServiceImpl(private val tagRepository: TagRepository) : TagService {
 
+	@Transactional
 	override fun createTag(tagRequest: TagRequest) = when {
 		existsByTag(tagRequest.tag) -> throw EntityNotFoundException("Tag ${tagRequest.tag} already exists")
 		else -> tagRepository.save(tagRequest.toEntity()).toResponse()
 	}
 
+	@Transactional(readOnly = true)
 	override fun existsByTag(tag: String) = tagRepository.existsById(tag)
 
+	@Transactional
 	override fun deleteByTag(tag: String) = tagRepository.deleteById(tag)
 
+	@Transactional(readOnly = true)
 	override fun findAll(): List<TagResponse> = tagRepository.findAll().toResponses()
 
+	@Transactional(readOnly = true)
 	override fun findAllByTag(tags: Array<String>) =
 		tagRepository.findAllByTagIn(tags).map(Tag::toResponse)
 
-	override fun findEntityByTag(tag: String) = tagRepository.findById(tag)
-		.orElseThrow { EntityNotFoundException("Tag $tag not found") }
+	@Transactional(readOnly = true)
+	override fun findEntityByTag(tag: String): Tag {
+		return tagRepository.findById(tag)
+			.orElseThrow { EntityNotFoundException("Tag $tag not found") }
+	}
 
+	@Transactional(readOnly = true)
 	override fun findByTag(tag: String) = findEntityByTag(tag).toResponse()
 }

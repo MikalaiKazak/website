@@ -1,14 +1,15 @@
 package com.mikalaykazak.blog.maper
 
 import com.mikalaykazak.blog.dto.ReactionRequest
+import com.mikalaykazak.blog.entity.Post
 import com.mikalaykazak.blog.entity.Reaction
-import com.mikalaykazak.blog.entity.Vote
 
 
-fun ReactionRequest.toEntity() = Reaction(
+fun ReactionRequest.toEntity(post: Post) = Reaction(
 	id = Reaction.ReactionId(
 		userId = userId,
-		postId = postId
+		postId = post.id!!
 	),
-	vote = Vote.fromInt(vote)
+	post = post,
+	vote = vote
 )

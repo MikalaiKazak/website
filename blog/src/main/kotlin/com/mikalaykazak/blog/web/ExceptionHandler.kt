@@ -21,9 +21,9 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
 		status: HttpStatus,
 		request: WebRequest,
 	): ResponseEntity<Any> {
-		val errors =
-			ex.bindingResult.fieldErrors.map { "${it.field} ${it.defaultMessage}" }
-				.toList()
+		val errors = ex.bindingResult.fieldErrors
+			.map { "${it.field} ${it.defaultMessage}" }
+			.toList()
 		return handleExceptionInternal(ex, errors, headers, status, request)
 	}
 

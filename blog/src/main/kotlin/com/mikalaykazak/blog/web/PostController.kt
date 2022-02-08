@@ -23,8 +23,7 @@ class PostController(
 
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
-	fun createPost(@RequestBody @Valid postCreateRequest: PostCreateRequest) =
-		postService.createPost(postCreateRequest)
+	fun createPost(@RequestBody @Valid postCreateRequest: PostCreateRequest) = postService.createPost(postCreateRequest)
 
 	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)
