@@ -1,4 +1,4 @@
-package com.mikalaykazak.blog.dto
+package com.mikalaykazak.blog.dto.reaction
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import javax.validation.constraints.NotNull

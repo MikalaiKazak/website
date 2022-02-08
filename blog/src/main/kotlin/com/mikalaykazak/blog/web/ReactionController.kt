@@ -1,6 +1,8 @@
 package com.mikalaykazak.blog.web
 
-import com.mikalaykazak.blog.dto.ReactionRequest
+import com.mikalaykazak.blog.dto.reaction.ReactionRequest
+import com.mikalaykazak.blog.maper.toEntity
+import com.mikalaykazak.blog.service.PostService
 import com.mikalaykazak.blog.service.ReactionService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PathVariable
@@ -12,17 +14,20 @@ import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/posts/{postId}")
+@RequestMapping("/posts/{postId}/reaction")
 class ReactionController(
 	private val reactionService: ReactionService,
+	private val postService: PostService,
 ) {
 
-	@PostMapping("/reaction")
+	@PostMapping("/")
 	@ResponseStatus(HttpStatus.OK)
 	fun addReaction(
 		@PathVariable("postId") postId: Long,
 		@RequestBody @Valid reactionRequest: ReactionRequest,
 	) {
-		reactionService.addReaction(postId, reactionRequest)
+		val post = postService.findById(postId)
+		val reaction = reactionRequest.toEntity(post)
+		reactionService.addReaction(postId, reaction)
 	}
 }

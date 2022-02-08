@@ -1,6 +1,6 @@
 package com.mikalaykazak.blog.maper
 
-import com.mikalaykazak.blog.dto.ReactionRequest
+import com.mikalaykazak.blog.dto.reaction.ReactionRequest
 import com.mikalaykazak.blog.entity.Post
 import com.mikalaykazak.blog.entity.Reaction
 

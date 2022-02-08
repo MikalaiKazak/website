@@ -1,0 +1,511 @@
+POST http://localhost:9000/api/v1/posts/1/reaction/
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "vote": 0
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/2/reaction/
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "vote": 0
+}
+
+<> 2022-02-08T114849.400.txt
+
+###
+
+POST http://localhost:9000/api/v1/posts/2/reaction
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "vote": 0
+}
+
+<> 2022-02-08T114839.404.json
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/comments/
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "text": "comment"
+}
+
+<> 2022-02-08T114832.201.json
+
+###
+
+POST http://localhost:9000/api/v1/posts/2/comments/
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "text": "comment"
+}
+
+<> 2022-02-08T114828.400.txt
+
+###
+
+POST http://localhost:9000/api/v1/posts/2/comment/
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "text": "comment"
+}
+
+<> 2022-02-08T114816.404.json
+
+###
+
+POST http://localhost:9000/api/v1/posts/2/comment/
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "text": "comment"
+}
+
+<> 2022-02-08T114806.404.json
+
+###
+
+POST http://localhost:9000/api/v1/posts/2/comment/
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "text": "comment"
+}
+
+<> 2022-02-08T114757.404.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/3/comments/
+Content-Type: application/json
+
+<> 2022-02-08T114742.200.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/3/comments/
+Content-Type: application/json
+
+<> 2022-02-08T114735.200.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/2/comments/
+Content-Type: application/json
+
+<> 2022-02-08T114731.200.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/1/comments/
+Content-Type: application/json
+
+<> 2022-02-08T114727.200.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/1/comment/
+Content-Type: application/json
+
+<> 2022-02-08T114721.404.json
+
+###
+
+PUT http://localhost:9000/api/v1/posts/
+Content-Type: application/json
+
+{
+  "id": 1,
+  "headline": "Test Markdown",
+  "markdownBody": " hello \n  world",
+  "state": "DRAFT",
+  "userId": 1,
+  "tags": [
+    {
+      "tag": "C#"
+    }
+  ]
+}
+
+<> 2022-02-08T114713.200.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/3
+
+<> 2022-02-08T114703.400.txt
+
+###
+
+GET http://localhost:9000/api/v1/posts/1
+
+<> 2022-02-08T114657.200.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/
+
+<> 2022-02-08T114651.200.json
+
+###
+
+GET http://localhost:9000/api/v1/tags/
+
+<> 2022-02-08T114639.200.json
+
+###
+
+POST http://localhost:9000/api/v1/tags/
+Content-Type: application/json
+
+{
+  "tag": "C#"
+}
+
+<> 2022-02-08T114633.201.json
+
+###
+
+POST http://localhost:9000/api/v1/tags/
+Content-Type: application/json
+
+{
+  "tag": "Java"
+}
+
+<> 2022-02-08T114628.400.txt
+
+###
+
+GET http://localhost:9000/api/v1/tags/?tags=Java
+
+<> 2022-02-08T114623.200.json
+
+###
+
+GET http://localhost:9000/api/v1/tags/?tags=C#
+
+<> 2022-02-08T114609.200.json
+
+###
+
+GET http://localhost:9000/api/v1/tags/
+
+<> 2022-02-08T114602.200.json
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "vote": 0
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/2/reaction
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "vote": 0
+}
+
+<> 2022-02-08T112354.400.txt
+
+###
+
+POST http://localhost:9000/api/v1/posts/10/reaction
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "vote": 0
+}
+
+<> 2022-02-08T112345.400.txt
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "postId": 10,
+  "vote": 0
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "postId": 10,
+  "vote": 0
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "postId": 3,
+  "vote": 0
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "postId": 1,
+  "vote": 0
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "postId": 1,
+  "vote": 0
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "postId": 1,
+  "vote": 0
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "postId": 1,
+  "vote": -1
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "postId": 1,
+  "vote": -1
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "postId": 1,
+  "vote": -1
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 2,
+  "postId": 1,
+  "vote": -1
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "postId": 1,
+  "vote": -1
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "postId": 2,
+  "vote": 1
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "postId": 1,
+  "vote": 1
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "postId": 1,
+  "vote": -1
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "postId": 1,
+  "vote": 0
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "postId": 1,
+  "vote": 0
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "postId": 1,
+  "vote": 0
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "postId": 1,
+  "vote": -1
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "postId": 1,
+  "vote": -1
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "postId": 1,
+  "vote": -1
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "postId": 1,
+  "vote": -1
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "postId": 1,
+  "vote": 1
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "postId": 1,
+  "vote": 1
+}
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/reaction
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "postId": 1,
+  "vote": 1
+}
+
+###
+

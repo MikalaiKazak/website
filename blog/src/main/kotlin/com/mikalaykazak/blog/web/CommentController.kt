@@ -2,7 +2,11 @@ package com.mikalaykazak.blog.web
 
 import com.mikalaykazak.blog.dto.comment.CommentCreateRequest
 import com.mikalaykazak.blog.dto.comment.CommentResponse
+import com.mikalaykazak.blog.maper.toEntity
+import com.mikalaykazak.blog.maper.toResponse
+import com.mikalaykazak.blog.maper.toResponses
 import com.mikalaykazak.blog.service.CommentService
+import com.mikalaykazak.blog.service.PostService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -18,6 +22,7 @@ import javax.validation.Valid
 @RequestMapping("/posts/{postId}/comments")
 class CommentController(
 	private val commentService: CommentService,
+	private val postService: PostService
 ) {
 
 	@GetMapping("/")
@@ -29,12 +34,19 @@ class CommentController(
 		@RequestParam("sortBy", defaultValue = "updatedAt") sortBy: String,
 		@RequestParam("orderBy", defaultValue = "desc") orderBy: String,
 	): List<CommentResponse> {
-		return commentService.findAllByPostId(postId)
+		val comments = commentService.findAllByPostId(postId)
+		return comments.toResponses()
 	}
 
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
 	fun createCommentForPost(
 		@PathVariable("postId") postId: Long,
-		@RequestBody @Valid commentCreateRequest: CommentCreateRequest) = commentService.createCommentForPost(postId, commentCreateRequest)
+		@RequestBody @Valid commentCreateRequest: CommentCreateRequest,
+	): CommentResponse {
+		val post = postService.findById(postId)
+		val comment = commentCreateRequest.toEntity(post)
+		val savedComment = commentService.createCommentForPost(postId, comment)
+		return savedComment.toResponse()
+	}
 }
