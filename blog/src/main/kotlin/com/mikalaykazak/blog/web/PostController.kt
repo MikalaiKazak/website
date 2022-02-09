@@ -1,5 +1,6 @@
 package com.mikalaykazak.blog.web
 
+import com.mikalaykazak.blog.dto.ResponseWithPage
 import com.mikalaykazak.blog.dto.post.PostCreateRequest
 import com.mikalaykazak.blog.dto.post.PostResponse
 import com.mikalaykazak.blog.dto.post.PostUpdateRequest
@@ -7,6 +8,7 @@ import com.mikalaykazak.blog.maper.toEntity
 import com.mikalaykazak.blog.maper.toResponse
 import com.mikalaykazak.blog.maper.toResponses
 import com.mikalaykazak.blog.service.PostService
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
@@ -35,22 +38,48 @@ class PostController(
 
 	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)
-	fun findAll(): List<PostResponse> {
-		val posts = postService.findAll()
-		return posts.toResponses()
+	fun findAllPosts(
+		@RequestParam("page", required = false, defaultValue = "0") page: Int,
+		@RequestParam("size", required = false, defaultValue = "10") size: Int,
+	): ResponseWithPage<List<PostResponse>> {
+		val postSlice = postService.findAllPosts(PageRequest.of(page, size))
+
+		return ResponseWithPage(
+			data = postSlice.content.toResponses(),
+			currentPage = postSlice.number,
+			totalPages = postSlice.totalPages,
+			totalElements = postSlice.totalElements
+		)
+	}
+
+	@GetMapping("/", params = ["tag"])
+	@ResponseStatus(HttpStatus.OK)
+	fun findAllPostsByTag(
+		@RequestParam("tag") tag: String,
+		@RequestParam("page", required = false, defaultValue = "0") page: Int,
+		@RequestParam("size", required = false, defaultValue = "10") size: Int,
+	): ResponseWithPage<List<PostResponse>> {
+		val postSlice = postService.findAllPostsByTag(tag, PageRequest.of(page, size))
+
+		return ResponseWithPage(
+			data = postSlice.content.toResponses(),
+			currentPage = postSlice.number,
+			totalPages = postSlice.totalPages,
+			totalElements = postSlice.totalElements
+		)
 	}
 
 	@GetMapping("/{postId}")
 	@ResponseStatus(HttpStatus.OK)
-	fun findById(@PathVariable("postId") postId: Long): PostResponse {
-		val post = postService.findById(postId)
+	fun findPostByPostId(@PathVariable("postId") postId: Long): PostResponse {
+		val post = postService.findPostByPostId(postId)
 		return post.toResponse()
 	}
 
 	@DeleteMapping("/{postId}")
 	@ResponseStatus(HttpStatus.OK)
-	fun deleteById(@PathVariable("postId") postId: Long) {
-		postService.deleteById(postId)
+	fun deletePostByPostId(@PathVariable("postId") postId: Long) {
+		postService.deletePostByPostId(postId)
 	}
 
 	@PutMapping("/")

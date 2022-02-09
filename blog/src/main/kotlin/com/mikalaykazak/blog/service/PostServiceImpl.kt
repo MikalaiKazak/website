@@ -8,6 +8,8 @@ import com.vladsch.flexmark.html.HtmlRenderer
 import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.parser.PegdownExtensions
 import com.vladsch.flexmark.profile.pegdown.PegdownOptionsAdapter
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityNotFoundException
@@ -20,7 +22,7 @@ class PostServiceImpl(
 	@Transactional
 	override fun updatePost(post: Post): Post {
 		return when {
-			existsById(post.id!!) -> {
+			isPostExistsByPostId(post.id!!) -> {
 				processMarkdownToHtml(post)
 				postRepository.save(post)
 			}
@@ -29,7 +31,7 @@ class PostServiceImpl(
 	}
 
 	@Transactional(readOnly = true)
-	override fun existsById(postId: Long): Boolean {
+	override fun isPostExistsByPostId(postId: Long): Boolean {
 		return postRepository.existsById(postId)
 	}
 
@@ -40,22 +42,27 @@ class PostServiceImpl(
 	}
 
 	@Transactional
-	override fun deleteById(postId: Long) {
+	override fun deletePostByPostId(postId: Long) {
 		return when {
-			existsById(postId) -> postRepository.deleteById(postId)
+			isPostExistsByPostId(postId) -> postRepository.deleteById(postId)
 			else -> throw EntityNotFoundException("Post with id=$postId not found")
 		}
 	}
 
 	@Transactional(readOnly = true)
-	override fun findAll(): List<Post> {
-		return postRepository.findAll()
+	override fun findAllPosts(pageable: Pageable): Page<Post> {
+		return postRepository.findAll(pageable)
 	}
 
 	@Transactional(readOnly = true)
-	override fun findById(postId: Long): Post {
+	override fun findPostByPostId(postId: Long): Post {
 		return postRepository.findById(postId)
 			.orElseThrow { EntityNotFoundException("Post with id=$postId not found") }
+	}
+
+	@Transactional(readOnly = true)
+	override fun findAllPostsByTag(tag: String, pageable: Pageable): Page<Post> {
+		return postRepository.findAllByTags_Tag(tag, pageable)
 	}
 
 	//TODO

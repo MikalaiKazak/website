@@ -5,7 +5,7 @@ import com.mikalaykazak.blog.dto.tag.TagResponse
 import com.mikalaykazak.blog.entity.Tag
 
 fun Tag.toResponse() = TagResponse(
-	tag = tag
+	tag = tag,
 )
 
 fun TagRequest.toEntity() = Tag(

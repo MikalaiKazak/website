@@ -10,7 +10,7 @@ class ReactionRequest(
 	@NotNull
 	val userId: Long,
 
-	@JsonProperty("vote")
+	@JsonProperty("isLiked")
 	@NotNull
-	val vote: Int,
+	val isLiked: Boolean,
 )

@@ -26,8 +26,8 @@
 			</column>
 
 			<column
-					name="vote"
-					type="tinyint">
+					name="is_liked"
+					type="boolean">
 				<constraints nullable="false"/>
 			</column>
 		</createTable>

@@ -2,6 +2,8 @@ package com.mikalaykazak.blog.service
 
 import com.mikalaykazak.blog.entity.Comment
 import com.mikalaykazak.blog.repository.CommentRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -11,8 +13,11 @@ class CommentServiceImpl(
 ) : CommentService {
 
 	@Transactional(readOnly = true)
-	override fun findAllByPostId(postId: Long): List<Comment> {
-		return commentRepository.findAllByPostId(postId)
+	override fun findAllCommentsByPostId(
+		postId: Long,
+		pageable: Pageable,
+	): Page<Comment> {
+		return commentRepository.findAllByPostId(postId, pageable)
 	}
 
 	@Transactional

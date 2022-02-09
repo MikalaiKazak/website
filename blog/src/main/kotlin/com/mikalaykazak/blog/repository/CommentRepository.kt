@@ -11,8 +11,5 @@ import org.springframework.stereotype.Repository
 interface CommentRepository : JpaRepository<Comment, Long> {
 
 	@EntityGraph(value = "comment-post-entity-graph")
-	fun findAllByPostId(postId: Long): List<Comment>
-
-	@EntityGraph(value = "comment-post-entity-graph")
 	fun findAllByPostId(postId: Long, page: Pageable): Page<Comment>
 }

@@ -1,5 +1,6 @@
 package com.mikalaykazak.blog.web
 
+import com.mikalaykazak.blog.dto.ResponseWithPage
 import com.mikalaykazak.blog.dto.comment.CommentCreateRequest
 import com.mikalaykazak.blog.dto.comment.CommentResponse
 import com.mikalaykazak.blog.maper.toEntity
@@ -7,6 +8,7 @@ import com.mikalaykazak.blog.maper.toResponse
 import com.mikalaykazak.blog.maper.toResponses
 import com.mikalaykazak.blog.service.CommentService
 import com.mikalaykazak.blog.service.PostService
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -27,15 +29,20 @@ class CommentController(
 
 	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)
-	fun getAllByPostId(
+	fun getAllCommentsByPostId(
 		@PathVariable("postId") postId: Long,
-		@RequestParam("page", defaultValue = "0") page: Int,
-		@RequestParam("limit", defaultValue = "10") limit: Int,
-		@RequestParam("sortBy", defaultValue = "updatedAt") sortBy: String,
-		@RequestParam("orderBy", defaultValue = "desc") orderBy: String,
-	): List<CommentResponse> {
-		val comments = commentService.findAllByPostId(postId)
-		return comments.toResponses()
+		@RequestParam("page", required = false, defaultValue = "0") page: Int,
+		@RequestParam("size", required = false, defaultValue = "10") size: Int,
+	): ResponseWithPage<List<CommentResponse>> {
+		val commentSlice =
+			commentService.findAllCommentsByPostId(postId, PageRequest.of(page, size))
+
+		return ResponseWithPage(
+			data = commentSlice.content.toResponses(),
+			currentPage = commentSlice.number,
+			totalPages = commentSlice.totalPages,
+			totalElements = commentSlice.totalElements
+		)
 	}
 
 	@PostMapping("/")
@@ -44,7 +51,7 @@ class CommentController(
 		@PathVariable("postId") postId: Long,
 		@RequestBody @Valid commentCreateRequest: CommentCreateRequest,
 	): CommentResponse {
-		val post = postService.findById(postId)
+		val post = postService.findPostByPostId(postId)
 		val comment = commentCreateRequest.toEntity(post)
 		val savedComment = commentService.createCommentForPost(postId, comment)
 		return savedComment.toResponse()

@@ -20,8 +20,8 @@ class Reaction(
 	@Column(name = "id", nullable = false)
 	val id: ReactionId,
 
-	@Column(name = "vote", nullable = false)
-	val vote: Int,
+	@Column(name = "is_liked", nullable = false)
+	val isLiked: Boolean,
 
 	@MapsId("post_id")
 	@ManyToOne(optional = false)

@@ -11,7 +11,7 @@ class ReactionServiceImpl(
 	private val reactionRepository: ReactionRepository,
 ) : ReactionService {
 
-	override fun addReaction(postId: Long, reaction: Reaction) {
+	override fun addReaction(reaction: Reaction) {
 		reactionRepository.save(reaction)
 	}
 }

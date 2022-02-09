@@ -26,8 +26,8 @@ class ReactionController(
 		@PathVariable("postId") postId: Long,
 		@RequestBody @Valid reactionRequest: ReactionRequest,
 	) {
-		val post = postService.findById(postId)
+		val post = postService.findPostByPostId(postId)
 		val reaction = reactionRequest.toEntity(post)
-		reactionService.addReaction(postId, reaction)
+		reactionService.addReaction(reaction)
 	}
 }

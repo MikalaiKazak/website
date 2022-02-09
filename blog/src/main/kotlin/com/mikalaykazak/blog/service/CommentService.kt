@@ -1,6 +1,8 @@
 package com.mikalaykazak.blog.service
 
 import com.mikalaykazak.blog.entity.Comment
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 
 interface CommentService {
 	fun createCommentForPost(
@@ -8,5 +10,5 @@ interface CommentService {
 		comment: Comment,
 	): Comment
 
-	fun findAllByPostId(postId: Long): List<Comment>
+	fun findAllCommentsByPostId(postId: Long, pageable: Pageable): Page<Comment>
 }

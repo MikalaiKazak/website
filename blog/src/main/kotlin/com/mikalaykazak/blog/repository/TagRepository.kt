@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface TagRepository : JpaRepository<Tag, String> {
 
-	fun findAllByTagIn(tags: Array<String>): List<Tag>
+	fun existsByTag(tag: String): Boolean
 }

@@ -11,5 +11,5 @@ fun ReactionRequest.toEntity(post: Post) = Reaction(
 		postId = post.id!!
 	),
 	post = post,
-	vote = vote
+	isLiked = isLiked
 )
