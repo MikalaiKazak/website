@@ -12,13 +12,14 @@ import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.NamedAttributeNode
 import javax.persistence.NamedEntityGraph
+import javax.persistence.OneToMany
 import javax.persistence.Table
 
 @Entity
 @Table(name = "comment")
 @DynamicUpdate
 @NamedEntityGraph(name = "comment-post-entity-graph",
-	attributeNodes = [NamedAttributeNode("post")]
+	attributeNodes = [NamedAttributeNode("post"), NamedAttributeNode("children")]
 )
 class Comment(
 	@Id
@@ -37,5 +38,12 @@ class Comment(
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "post_id", nullable = false, updatable = false)
-	val post: Post
+	val post: Post,
+
+	@ManyToOne
+	@JoinColumn(name = "parent_id")
+	val parent: Comment? = null,
+
+	@OneToMany(mappedBy = "parent")
+	val children: Set<Comment> = setOf()
 )

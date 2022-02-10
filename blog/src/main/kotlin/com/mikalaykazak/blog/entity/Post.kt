@@ -32,8 +32,6 @@ class Post(
 	@Column(name = "headline", nullable = false)
 	val headline: String,
 
-	// TODO I still don't know why i need Markdown with HTML instead of only store html in db
-	// TODO Need do some researches
 	@Column(name = "markdown_body", nullable = false)
 	val markdownBody: String,
 

@@ -24,9 +24,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/posts")
-class PostController(
-	private val postService: PostService
-) {
+class PostController(private val postService: PostService) {
 
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -39,8 +37,8 @@ class PostController(
 	@GetMapping("/")
 	@ResponseStatus(HttpStatus.OK)
 	fun findAllPosts(
-		@RequestParam("page", required = false, defaultValue = "0") page: Int,
-		@RequestParam("size", required = false, defaultValue = "10") size: Int,
+		@RequestParam("page", required = false, defaultValue = DEFAULT_PAGE) page: Int,
+		@RequestParam("size", required = false, defaultValue = DEFAULT_PAGE_SIZE) size: Int,
 	): ResponseWithPage<List<PostResponse>> {
 		val postSlice = postService.findAllPosts(PageRequest.of(page, size))
 
@@ -56,8 +54,8 @@ class PostController(
 	@ResponseStatus(HttpStatus.OK)
 	fun findAllPostsByTag(
 		@RequestParam("tag") tag: String,
-		@RequestParam("page", required = false, defaultValue = "0") page: Int,
-		@RequestParam("size", required = false, defaultValue = "10") size: Int,
+		@RequestParam("page", required = false, defaultValue = DEFAULT_PAGE) page: Int,
+		@RequestParam("size", required = false, defaultValue = DEFAULT_PAGE_SIZE) size: Int,
 	): ResponseWithPage<List<PostResponse>> {
 		val postSlice = postService.findAllPostsByTag(tag, PageRequest.of(page, size))
 

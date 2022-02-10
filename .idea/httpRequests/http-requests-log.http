@@ -1,3 +1,85 @@
+GET http://localhost:9000/api/v1/posts/1/comments/
+Content-Type: application/json
+
+<> 2022-02-10T123650.200.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/1/comments/
+Content-Type: application/json
+
+<> 2022-02-10T123506.200.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/1/comments/
+Content-Type: application/json
+
+<> 2022-02-10T123145.200.json
+
+###
+
+POST http://localhost:9000/api/v1/posts/1/comments/
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "text": "comment"
+}
+
+<> 2022-02-10T123105.201.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/1/comments/
+Content-Type: application/json
+
+<> 2022-02-09T153602.200.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/1/comments/
+Content-Type: application/json
+
+<> 2022-02-09T153324.200.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/1/comments/
+Content-Type: application/json
+
+<> 2022-02-09T153304.200.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/1/comments/
+Content-Type: application/json
+
+<> 2022-02-09T152612.200.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/1/comments/
+Content-Type: application/json
+
+<> 2022-02-09T152047.200.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/1/comments/
+Content-Type: application/json
+
+<> 2022-02-09T151914.200.json
+
+###
+
+GET http://localhost:9000/api/v1/posts/1/comments/
+Content-Type: application/json
+
+<> 2022-02-09T151739.200.json
+
+###
+
 POST http://localhost:9000/api/v1/posts/1/reaction/
 Content-Type: application/json
 
@@ -518,98 +600,6 @@ Content-Type: application/json
 GET http://localhost:9000/api/v1/posts/3
 
 <> 2022-02-08T114703.400.txt
-
-###
-
-GET http://localhost:9000/api/v1/posts/1
-
-<> 2022-02-08T114657.200.json
-
-###
-
-GET http://localhost:9000/api/v1/posts/
-
-<> 2022-02-08T114651.200.json
-
-###
-
-GET http://localhost:9000/api/v1/tags/
-
-<> 2022-02-08T114639.200.json
-
-###
-
-POST http://localhost:9000/api/v1/tags/
-Content-Type: application/json
-
-{
-  "tag": "C#"
-}
-
-<> 2022-02-08T114633.201.json
-
-###
-
-POST http://localhost:9000/api/v1/tags/
-Content-Type: application/json
-
-{
-  "tag": "Java"
-}
-
-<> 2022-02-08T114628.400.txt
-
-###
-
-GET http://localhost:9000/api/v1/tags/?tags=Java
-
-<> 2022-02-08T114623.200.json
-
-###
-
-GET http://localhost:9000/api/v1/tags/?tags=C#
-
-<> 2022-02-08T114609.200.json
-
-###
-
-GET http://localhost:9000/api/v1/tags/
-
-<> 2022-02-08T114602.200.json
-
-###
-
-POST http://localhost:9000/api/v1/posts/1/reaction
-Content-Type: application/json
-
-{
-  "userId": 2,
-  "vote": 0
-}
-
-###
-
-POST http://localhost:9000/api/v1/posts/2/reaction
-Content-Type: application/json
-
-{
-  "userId": 2,
-  "vote": 0
-}
-
-<> 2022-02-08T112354.400.txt
-
-###
-
-POST http://localhost:9000/api/v1/posts/10/reaction
-Content-Type: application/json
-
-{
-  "userId": 2,
-  "vote": 0
-}
-
-<> 2022-02-08T112345.400.txt
 
 ###
 
