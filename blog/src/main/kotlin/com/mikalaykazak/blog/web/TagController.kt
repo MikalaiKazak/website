@@ -2,32 +2,16 @@ package com.mikalaykazak.blog.web
 
 import com.mikalaykazak.blog.dto.tag.TagRequest
 import com.mikalaykazak.blog.dto.tag.TagResponse
-import com.mikalaykazak.blog.maper.toEntity
-import com.mikalaykazak.blog.maper.toResponse
-import com.mikalaykazak.blog.service.TagService
-import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
-import javax.validation.Valid
-import javax.websocket.server.PathParam
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.tags.Tag
 
-@RestController
-@RequestMapping("/tags")
-class TagController(private val tagService: TagService) {
+@Tag(name = "tag", description = "Api for operate with tags")
+interface TagController {
 
-	@PostMapping("/")
-	@ResponseStatus(HttpStatus.CREATED)
-	fun createTag(@RequestBody @Valid tagRequest: TagRequest): TagResponse {
-		val tag = tagRequest.toEntity()
-		val createdTag = tagService.createTag(tag)
-		return createdTag.toResponse()
-	}
+    @Operation(summary = "create tag")
+    fun createTag(request: TagRequest): TagResponse
 
-	@DeleteMapping("/")
-	@ResponseStatus(HttpStatus.OK)
-	fun deleteTag(@PathParam("tag") tag: String) = tagService.deleteTag(tag)
+    @Operation(summary = "delete tag")
+    fun deleteTag(@Parameter(description = "tag") tag: String)
 }

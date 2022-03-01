@@ -1,7 +1,6 @@
 package com.mikalaykazak.blog.repository
 
 import com.mikalaykazak.blog.entity.Post
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.EntityGraph
 import org.springframework.data.jpa.repository.JpaRepository
@@ -18,16 +17,16 @@ interface PostRepository : JpaRepository<Post, Long> {
 	fun softDelete(postId: Long)
 
 	@Query("SELECT p FROM #{#entityName} p WHERE p.state<>\'REMOVED\'")
-	@EntityGraph(value = "post-tag-entity-graph")
-	override fun findAll(pageable: Pageable): Page<Post>
+	@EntityGraph(value = "post-tag-entity-graph", type = EntityGraph.EntityGraphType.FETCH)
+	fun findPosts(pageable: Pageable): List<Post>
 
 	@Query("SELECT p FROM #{#entityName} p WHERE p.id=?1 AND p.state<>\'REMOVED\'")
-	@EntityGraph(value = "post-tag-entity-graph")
+	@EntityGraph(value = "post-tag-entity-graph", type = EntityGraph.EntityGraphType.FETCH)
 	override fun findById(postId: Long): Optional<Post>
 
 	@Query("SELECT COUNT(p) = 1 FROM #{#entityName} p WHERE p.id=?1 AND p.state<>\'REMOVED\'")
 	override fun existsById(postId: Long): Boolean
 
-	@EntityGraph(value = "post-tag-entity-graph")
-	fun findAllByTags_Tag(tag: String, pageable: Pageable): Page<Post>
+	@EntityGraph(value = "post-tag-entity-graph", type = EntityGraph.EntityGraphType.FETCH)
+	fun findAllByTags_Tag(tag: String, pageable: Pageable): List<Post>
 }

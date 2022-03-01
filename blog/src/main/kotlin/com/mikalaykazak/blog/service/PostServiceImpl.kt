@@ -2,13 +2,6 @@ package com.mikalaykazak.blog.service
 
 import com.mikalaykazak.blog.entity.Post
 import com.mikalaykazak.blog.repository.PostRepository
-import com.vladsch.flexmark.ext.escaped.character.EscapedCharacterExtension
-import com.vladsch.flexmark.ext.tables.TablesExtension
-import com.vladsch.flexmark.html.HtmlRenderer
-import com.vladsch.flexmark.parser.Parser
-import com.vladsch.flexmark.parser.PegdownExtensions
-import com.vladsch.flexmark.profile.pegdown.PegdownOptionsAdapter
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -23,7 +16,6 @@ class PostServiceImpl(
 	override fun updatePost(post: Post): Post {
 		return when {
 			isPostExistsByPostId(post.id!!) -> {
-				processMarkdownToHtml(post)
 				postRepository.save(post)
 			}
 			else -> throw EntityNotFoundException("Post with id=${post.id} not found")
@@ -37,7 +29,6 @@ class PostServiceImpl(
 
 	@Transactional
 	override fun createPost(post: Post): Post {
-		processMarkdownToHtml(post)
 		return postRepository.save(post)
 	}
 
@@ -50,8 +41,8 @@ class PostServiceImpl(
 	}
 
 	@Transactional(readOnly = true)
-	override fun findAllPosts(pageable: Pageable): Page<Post> {
-		return postRepository.findAll(pageable)
+	override fun findAllPosts(pageable: Pageable): List<Post> {
+		return postRepository.findPosts(pageable)
 	}
 
 	@Transactional(readOnly = true)
@@ -61,23 +52,7 @@ class PostServiceImpl(
 	}
 
 	@Transactional(readOnly = true)
-	override fun findAllPostsByTag(tag: String, pageable: Pageable): Page<Post> {
+	override fun findAllPostsByTag(tag: String, pageable: Pageable): List<Post> {
 		return postRepository.findAllByTags_Tag(tag, pageable)
-	}
-
-	//TODO
-	private fun processMarkdownToHtml(post: Post): Post {
-		val options = PegdownOptionsAdapter.flexmarkOptions(true,
-			PegdownExtensions.HARDWRAPS,
-			TablesExtension.create(),
-			EscapedCharacterExtension.create())
-
-		val parser = Parser.builder(options).build()
-		val document = parser.parse(post.markdownBody)
-
-		val renderer = HtmlRenderer.builder(options).build()
-		post.htmlBody = renderer.render(document)
-
-		return post
 	}
 }

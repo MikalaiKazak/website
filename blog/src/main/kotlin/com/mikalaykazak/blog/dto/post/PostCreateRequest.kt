@@ -10,9 +10,9 @@ class PostCreateRequest(
 	@JsonProperty("headline")
 	@field:NotBlank
 	val headline: String,
-	@JsonProperty("markdownBody")
+	@JsonProperty("htmlBody")
 	@field:NotBlank
-	val markdownBody: String,
+	val htmlBody: String,
 	@JsonProperty("userId")
 	@field:Positive
 	val userId: Long,

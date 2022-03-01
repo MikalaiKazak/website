@@ -6,15 +6,17 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
-import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import javax.persistence.EntityNotFoundException
 
-@ControllerAdvice
+@RestControllerAdvice
 class ExceptionHandler : ResponseEntityExceptionHandler() {
 
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	override fun handleMethodArgumentNotValid(
 		ex: MethodArgumentNotValidException,
 		headers: HttpHeaders,
@@ -29,6 +31,7 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
 
 	//TODO change message
 	@ExceptionHandler(value = [EmptyResultDataAccessException::class])
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	fun handleEmptyResultDataAccessException(
 		ex: EmptyResultDataAccessException,
 		request: WebRequest,
@@ -42,6 +45,7 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
 
 	//TODO change message
 	@ExceptionHandler(value = [DataIntegrityViolationException::class])
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	fun handleDataIntegrityViolationException(
 		ex: DataIntegrityViolationException,
 		request: WebRequest,
@@ -54,6 +58,7 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
 	}
 
 	@ExceptionHandler(value = [EntityNotFoundException::class])
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	fun handleEntityNotFoundException(
 		ex: EntityNotFoundException,
 		request: WebRequest,
@@ -67,6 +72,7 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
 
 	//TODO change message
 	@ExceptionHandler(value = [IllegalArgumentException::class])
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	fun handleIllegalArgumentException(
 		ex: IllegalArgumentException,
 		request: WebRequest,

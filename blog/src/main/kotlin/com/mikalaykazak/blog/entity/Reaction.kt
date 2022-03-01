@@ -1,32 +1,23 @@
 package com.mikalaykazak.blog.entity
 
-import org.hibernate.annotations.DynamicUpdate
 import java.io.Serializable
-import javax.persistence.Column
-import javax.persistence.Embeddable
-import javax.persistence.EmbeddedId
-import javax.persistence.Entity
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
-import javax.persistence.MapsId
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "reaction")
-@DynamicUpdate
 class Reaction(
 
-	@EmbeddedId
-	@Column(name = "id", nullable = false)
-	val id: ReactionId,
+    @EmbeddedId
+    @Column(name = "id", nullable = false, unique = true)
+    val id: ReactionId,
 
-	@Column(name = "is_liked", nullable = false)
-	val isLiked: Boolean,
+    @Column(name = "is_liked", nullable = false)
+    val isLiked: Boolean,
 
-	@MapsId("post_id")
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "post_id", nullable = false, updatable = false)
-	val post: Post,
+    @MapsId("post_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "post_id", nullable = false)
+    val post: Post,
 ) {
 
 	@Embeddable

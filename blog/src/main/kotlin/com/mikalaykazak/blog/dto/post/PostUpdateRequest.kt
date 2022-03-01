@@ -7,23 +7,23 @@ import javax.validation.constraints.NotNull
 import javax.validation.constraints.Positive
 
 class PostUpdateRequest(
-	@JsonProperty("id")
-	@field:Positive
-	@field:NotNull
-	val id: Long,
-	@JsonProperty("headline")
-	@field:NotBlank
-	val headline: String,
-	@JsonProperty("markdownBody")
-	@field:NotBlank
-	val markdownBody: String,
-	@JsonProperty("state")
-	@field:NotBlank
-	val state: String,
-	@JsonProperty("userId")
-	@field:Positive
-	val userId: Long,
-	@JsonProperty("tags")
-	@field:NotNull
-	val tags: List<TagRequest>,
+    @JsonProperty("id")
+    @field:Positive
+    @field:NotNull
+    val id: Long,
+    @JsonProperty("headline")
+    @field:NotBlank
+    val headline: String,
+    @JsonProperty("htmlBody")
+    @field:NotBlank
+    val htmlBody: String,
+    @JsonProperty("state")
+    @field:NotBlank
+    val state: String,
+    @JsonProperty("userId")
+    @field:Positive
+    val userId: Long,
+    @JsonProperty("tags")
+    @field:NotNull
+    val tags: List<TagRequest>,
 )
